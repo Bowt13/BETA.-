@@ -1,0 +1,76 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+
+code = "shader_type canvas_item;
+
+uniform float r = 232.0;
+uniform float g = 64.0;
+uniform float b = 232.0;
+
+uniform int OCTAVES = 25;
+uniform float OPACITY = 0.32;
+
+uniform float Size_Multiplier = 0.05;
+uniform float Time_Multiplier = 0.05;
+
+vec3 rgb(vec3 value) {
+	return value/255.0;
+}
+
+float rand(vec2 coord) {
+	return fract(sin(dot(coord, coord) + coord.x*coord.y) + coord.y*coord.x);
+}
+
+float noise(vec2 coord) {
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+	
+//	a		b
+//	c		d 
+	float tl =rand(i);
+	float tr =rand(i + vec2(1.0, 0.0));
+	float bl =rand(i + vec2(0.0, 1.0));
+	float br =rand(i + vec2(1.0, 1.0));
+	
+	vec2 cubic = f * f * (3.0 - 2.0 * f);
+	
+	return mix(tl, tr, cubic.x) + (bl - tl) * cubic.y * (1.0 - cubic.x) + (br - tr) * cubic.x * cubic.y;
+}
+
+float fbm(vec2 coord) {
+	float value = 0.0;
+	float scale = 0.64;
+	
+	for(int i = 0; i < OCTAVES; i++){
+		value += noise(coord) * scale;
+		coord *= 1.64;
+		scale *= 0.64;
+	}
+	return value;
+}
+
+void fragment() { 
+	vec3 color = rgb(vec3(r,g,b));
+	vec2 coord = UV * (10.0 - Size_Multiplier);
+	vec2 motion = vec2(noise(coord + (vec2( TIME*Time_Multiplier, TIME*Time_Multiplier)/5.0)));
+	float modifier = (OPACITY*sin(cos(TIME*0.05)*0.05) + (OPACITY*0.5));
+	float final = fbm(coord + motion);
+	
+	COLOR = vec4(color, final * modifier);
+}"
+_sections_unfolded = [ "Resource" ]
+
+[resource]
+
+render_priority = 0
+shader = SubResource( 1 )
+shader_param/r = 232.0
+shader_param/g = 64.0
+shader_param/b = 232.0
+shader_param/OCTAVES = 50
+shader_param/OPACITY = 0.2
+shader_param/Size_Multiplier = 9.6
+shader_param/Time_Multiplier = 1.0
+_sections_unfolded = [ "shader_param" ]
+

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/War FX Gun Shot 001.wav-0d00401c600f3fa88faa92150d76785e.sample"
+
+[deps]
+
+source_file="res://Player/Scenes/War FX Gun Shot 001.wav"
+dest_files=[ "res://.import/War FX Gun Shot 001.wav-0d00401c600f3fa88faa92150d76785e.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=true
+force/max_rate=true
+force/max_rate_hz=18781.8
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Fog_shader.tres" type="Material" id=1]
+[ext_resource path="res://FLOORTEST.png" type="Texture" id=2]
+
+[node name="Fog" type="Sprite"]
+
+material = ExtResource( 1 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1792, 896 )
+_sections_unfolded = [ "Material", "Region", "Transform", "Visibility" ]
+
+

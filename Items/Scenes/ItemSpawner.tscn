@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Items/Scenes/ItemSpawner.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 16, 16 )
+
+[node name="ItemSpawner" type="Area2D"]
+
+position = Vector2( -672, -528 )
+input_pickable = true
+gravity_vec = Vector2( 0, 0 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+Item_Scene = null
+Kill_item = null
+Kill_after = null
+
+[node name="Position2D" type="Position2D" parent="." index="0"]
+
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 1 )
+
+[node name="Kill_timer" type="Timer" parent="." index="2"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[connection signal="timeout" from="Kill_timer" to="." method="_on_Kill_timer_timeout"]
+
+

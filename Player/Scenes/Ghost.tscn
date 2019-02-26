@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Player/Scenes/Ghost.gd" type="Script" id=1]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+
+render_priority = 0
+blend_mode = 1
+light_mode = 0
+_sections_unfolded = [ "Resource" ]
+
+[node name="Ghost" type="Sprite"]
+
+material = SubResource( 1 )
+z_index = -1
+script = ExtResource( 1 )
+_sections_unfolded = [ "Animation", "Material", "Offset", "Transform", "Visibility", "Z Index" ]
+
+[node name="AlphaTween" type="Tween" parent="." index="0"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[connection signal="tween_completed" from="AlphaTween" to="." method="_on_AlphaTween_tween_completed"]
+
+

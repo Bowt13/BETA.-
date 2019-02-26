@@ -1,0 +1,105 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Environmental/Scenes/rock_explosion.material" type="Material" id=1]
+[ext_resource path="res://Environmental/Sprites/rocks.png" type="Texture" id=2]
+[ext_resource path="res://Environmental/Scenes/RockExplosion.gd" type="Script" id=3]
+[ext_resource path="res://Environmental/Scenes/pebble_explosion.material" type="Material" id=4]
+[ext_resource path="res://Environmental/Sprites/crumbs.png" type="Texture" id=5]
+[ext_resource path="res://Environmental/Scenes/pebble_explosion_2.material" type="Material" id=6]
+[ext_resource path="res://UI/Sprites/fill.png" type="Texture" id=7]
+
+[node name="RockExplosion" type="Particles2D"]
+
+modulate = Color( 1, 0, 0.956863, 1 )
+emitting = false
+amount = 8
+lifetime = 1.0
+one_shot = true
+preprocess = 0.0
+speed_scale = 3.0
+explosiveness = 0.9
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = false
+draw_order = 0
+process_material = ExtResource( 1 )
+texture = ExtResource( 2 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+script = ExtResource( 3 )
+_sections_unfolded = [ "Material", "Process Material", "Time", "Transform", "Visibility" ]
+
+[node name="PebbleExplosion" type="Particles2D" parent="." index="0"]
+
+visible = false
+modulate = Color( 1, 0, 0.956863, 1 )
+show_behind_parent = true
+position = Vector2( 0.0937809, 0 )
+scale = Vector2( 0.456777, 1 )
+emitting = false
+amount = 10
+lifetime = 1.0
+one_shot = true
+preprocess = 0.0
+speed_scale = 5.0
+explosiveness = 0.9
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = false
+draw_order = 0
+process_material = ExtResource( 4 )
+texture = ExtResource( 5 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Process Material", "Textures", "Time", "Visibility" ]
+
+[node name="PebbleExplosion2" type="Particles2D" parent="." index="1"]
+
+visible = false
+modulate = Color( 1, 0, 0.956863, 1 )
+show_behind_parent = true
+position = Vector2( 0.424359, 0 )
+scale = Vector2( 0.486739, 0.5 )
+emitting = false
+amount = 10
+lifetime = 1.0
+one_shot = false
+preprocess = 0.0
+speed_scale = 5.0
+explosiveness = 0.9
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = false
+draw_order = 0
+process_material = ExtResource( 6 )
+texture = ExtResource( 2 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Process Material", "Textures", "Time", "Visibility" ]
+
+[node name="Sprite" type="Sprite" parent="." index="2"]
+
+visible = false
+position = Vector2( 90, 0 )
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="Kill_timer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Kill_timer" to="." method="_on_Kill_timer_timeout"]
+
+

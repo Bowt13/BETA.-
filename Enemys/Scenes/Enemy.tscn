@@ -1,0 +1,158 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Enemys/Scripts/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://Enemys/Scenes/Health.gd" type="Script" id=2]
+[ext_resource path="res://UI/Scenes/LifebarHook.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/Scenes/LifebarHook.gd" type="Script" id=4]
+[ext_resource path="res://Enemys/Sprites/KABANG!_ENEMY_TEST.png" type="Texture" id=5]
+[ext_resource path="res://Enemys/Scripts/Enemy_Timers.gd" type="Script" id=6]
+[ext_resource path="res://Enemys/Scripts/Search_timer.gd" type="Script" id=7]
+[ext_resource path="res://Enemys/Scripts/Jump_timer.gd" type="Script" id=8]
+[ext_resource path="res://FX/Scenes/GhostTrail.tscn" type="PackedScene" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 32, 30 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 33, 33 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 32, 32 )
+
+[node name="Enemy" type="KinematicBody2D" groups=[
+"Enemy",
+]]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform" ]
+spawn_time = 1.1
+
+[node name="Health" type="Node2D" parent="." index="0"]
+
+script = ExtResource( 2 )
+
+[node name="LifebarHook" parent="." index="1" instance=ExtResource( 3 )]
+
+position = Vector2( 0, -48 )
+script = ExtResource( 4 )
+
+[node name="Body" type="CollisionShape2D" parent="." index="2"]
+
+editor/display_folded = true
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Sprite" type="Sprite" parent="Body" index="0"]
+
+position = Vector2( -0.578947, 0 )
+texture = ExtResource( 5 )
+offset = Vector2( 0.6, 0 )
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="Area2D" type="Area2D" parent="." index="3"]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Enemy_Timers" type="Node2D" parent="." index="4"]
+
+editor/display_folded = true
+script = ExtResource( 6 )
+
+[node name="Search_timer" type="Timer" parent="Enemy_Timers" index="0"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = true
+autostart = false
+script = ExtResource( 7 )
+
+[node name="Jump_timer" type="Timer" parent="Enemy_Timers" index="1"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+script = ExtResource( 8 )
+
+[node name="Think_timer" type="Timer" parent="Enemy_Timers" index="2"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="Hit_timer" type="Timer" parent="Enemy_Timers" index="3"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = false
+autostart = false
+
+[node name="Inv_timer" type="Timer" parent="Enemy_Timers" index="4"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = false
+autostart = false
+
+[node name="Piose_timer" type="Timer" parent="Enemy_Timers" index="5"]
+
+process_mode = 1
+wait_time = 10.0
+one_shot = false
+autostart = false
+
+[node name="GhostTrail" parent="." index="5" instance=ExtResource( 9 )]
+
+set_opacity = 0.5
+
+[node name="ViewFieldContainer" type="Area2D" parent="." index="6"]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="ViewField" type="CollisionShape2D" parent="ViewFieldContainer" index="0"]
+
+shape = SubResource( 3 )
+
+[connection signal="change_scale" from="." to="LifebarHook" method="_on_Enemy_change_scale"]
+
+[connection signal="timeout" from="Enemy_Timers/Search_timer" to="." method="_on_Search_timer_timeout"]
+
+[connection signal="timeout" from="Enemy_Timers/Jump_timer" to="." method="_on_Jump_timer_timeout"]
+
+[connection signal="timeout" from="Enemy_Timers/Hit_timer" to="." method="_on_Hit_time_timeout"]
+
+[connection signal="timeout" from="Enemy_Timers/Inv_timer" to="." method="_on_Inv_time_timeout"]
+
+

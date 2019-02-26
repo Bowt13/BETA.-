@@ -1,0 +1,158 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Camera/Scripts/GrindSnapper.gd" type="Script" id=1]
+[ext_resource path="res://Camera/Scene/ViewField.gd" type="Script" id=2]
+[ext_resource path="res://Camera/Scene/Camera2D.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 640, 320 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 20, 320 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 640, 20 )
+
+[node name="GrindSnapper" type="Position2D"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="CameraViewField" type="Area2D" parent="." index="0"]
+
+input_pickable = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 2 )
+_sections_unfolded = [ "Pickable", "Transform", "Visibility" ]
+
+[node name="Field" type="CollisionShape2D" parent="CameraViewField" index="0"]
+
+editor/display_folded = true
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Barriers" type="Node2D" parent="CameraViewField/Field" index="0"]
+
+editor/display_folded = true
+_sections_unfolded = [ "Transform" ]
+
+[node name="Left" type="Area2D" parent="CameraViewField/Field/Barriers" index="0"]
+
+editor/display_folded = true
+position = Vector2( -640, 0 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraViewField/Field/Barriers/Left" index="0"]
+
+shape = SubResource( 2 )
+
+[node name="Right" type="Area2D" parent="CameraViewField/Field/Barriers" index="1"]
+
+editor/display_folded = true
+position = Vector2( 640, 0 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraViewField/Field/Barriers/Right" index="0"]
+
+shape = SubResource( 2 )
+
+[node name="Bottom" type="Area2D" parent="CameraViewField/Field/Barriers" index="2"]
+
+editor/display_folded = true
+position = Vector2( 0, 320 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraViewField/Field/Barriers/Bottom" index="0"]
+
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Top" type="Area2D" parent="CameraViewField/Field/Barriers" index="3"]
+
+editor/display_folded = true
+position = Vector2( 0, -320 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraViewField/Field/Barriers/Top" index="0"]
+
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Camera2D" type="Camera2D" parent="." index="1"]
+
+anchor_mode = 0
+rotating = false
+current = true
+zoom = Vector2( 1.5, 1.5 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.6
+drag_margin_top = 0.6
+drag_margin_right = 0.6
+drag_margin_bottom = 0.6
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = true
+script = ExtResource( 3 )
+_sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[connection signal="body_entered" from="CameraViewField/Field/Barriers/Left" to="." method="_on_Left_entered"]
+
+[connection signal="body_entered" from="CameraViewField/Field/Barriers/Right" to="." method="_on_Right_entered"]
+
+[connection signal="body_entered" from="CameraViewField/Field/Barriers/Bottom" to="." method="_on_Bottom_entered"]
+
+[connection signal="body_entered" from="CameraViewField/Field/Barriers/Top" to="." method="_on_Top_entered"]
+
+

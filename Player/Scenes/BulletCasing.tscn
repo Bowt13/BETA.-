@@ -1,0 +1,112 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Player/Scripts/BulletCasing.gd" type="Script" id=1]
+[ext_resource path="res://Player/Sprites/gun/KABANG!_CASING_TEST.png" type="Texture" id=2]
+[ext_resource path="res://FX/Scenes/GhostTrail.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 4, 7 )
+
+[sub_resource type="CapsuleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 1.0
+height = 2.0
+
+[node name="BulletCasing" type="RigidBody2D" index="0"]
+
+rotation = 1.5708
+scale = Vector2( 0.5, 0.5 )
+z_index = 4
+z_as_relative = false
+input_pickable = false
+collision_layer = 0
+collision_mask = 16
+mode = 0
+mass = 65535.0
+friction = 1.0
+bounce = 0.1
+gravity_scale = 10.0
+custom_integrator = false
+continuous_cd = 2
+contacts_reported = 100
+contact_monitor = true
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, -2000 )
+linear_damp = 0.0
+angular_velocity = 40.0
+angular_damp = -1.0
+script = ExtResource( 1 )
+_sections_unfolded = [ "Angular", "Applied Forces", "Collision", "Linear", "Material", "Transform", "Visibility" ]
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 1 )
+disabled = true
+
+[node name="GhostTrail" parent="." index="2" instance=ExtResource( 3 )]
+
+_sections_unfolded = [ "Transform" ]
+
+[node name="Grow_timer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 0.01
+one_shot = false
+autostart = true
+
+[node name="Disabled_timer" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="Sleep_timer" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 0.5
+one_shot = true
+autostart = false
+
+[node name="Area2D" type="Area2D" parent="." index="6"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+
+shape = SubResource( 2 )
+
+[node name="Sounds" type="Node2D" parent="." index="7"]
+
+[node name="Drop" type="AudioStreamPlayer" parent="Sounds" index="0"]
+
+stream = null
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[connection signal="timeout" from="Grow_timer" to="." method="_on_Grow_timer_timeout"]
+
+[connection signal="timeout" from="Disabled_timer" to="." method="_on_Disabled_timer_timeout"]
+
+[connection signal="timeout" from="Sleep_timer" to="." method="_on_Sleep_timer_timeout"]
+
+
