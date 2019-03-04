@@ -28,8 +28,6 @@ _sections_unfolded = [ "Material", "Transform" ]
 [node name="Level" parent="." index="3" instance=ExtResource( 2 )]
 
 _sections_unfolded = [ "Material", "Transform" ]
-Width = 3
-Height = 3
 
 [node name="Player" parent="." index="4" instance=ExtResource( 3 )]
 
@@ -37,8 +35,8 @@ position = Vector2( -944, -768 )
 scale = Vector2( 1.75, 1.75 )
 collision_mask = 7
 
-[connection signal="share_Physics" from="." to="Level" method="_on_World_share_Physics"]
-
 [connection signal="share_Physics" from="." to="Player" method="_on_World_share_Physics"]
+
+[connection signal="share_Physics" from="." to="Level" method="_on_World_share_Physics"]
 
 

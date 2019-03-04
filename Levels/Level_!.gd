@@ -5,9 +5,6 @@ signal share_Physics
 var Room_Resource = preload("res://Levels/RoomResource/RoomResource.gd")
 var Room_Type
 
-export(int, 3, 100)	var Width = 10
-export(int, 3, 100)	var Height = 3
-
 var rest_rooms = 0
 
 var rooms_Right = 1
@@ -18,7 +15,6 @@ var rooms_Bottom = 0
 var current_rooms = []
 
 func _ready():
-	LevelGenerator.create_grid( Width, Height)
 	set_fog_size()
 	spawn_rooms()
 	pass
@@ -53,7 +49,7 @@ func get_fog_mod(value):
 
 func spawn_rooms():
 	Room_Type = Room_Resource.new()
-## GENERATE ROOMS TO THE RIGHT
+	## GENERATE ROOMS TO THE RIGHT
 	for x in range(rooms_Right):
 		var new_layout
 		var is_last_R = false

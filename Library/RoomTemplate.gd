@@ -35,7 +35,7 @@ func load_json(path):
 		var json = JSON.parse(load_file(path))
 		if json.error_string:
 			print(json.error_string)
-		return json
+		return json.result
 	else:
 		print("LOAD FAILED (ERROR: INVALID JSON!)")
 	pass
