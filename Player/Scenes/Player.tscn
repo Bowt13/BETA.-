@@ -346,13 +346,12 @@ script = ExtResource( 24 )
 
 [node name="Body" type="CollisionShape2D" parent="." index="7"]
 
-editor/display_folded = true
 position = Vector2( 0.5, 0 )
 z_index = 2
 shape = SubResource( 7 )
 script = ExtResource( 25 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
-Turn_Time = 0.15
+Turn_Time = 0.05
 
 [node name="TurnHandler" type="Tween" parent="Body" index="0"]
 

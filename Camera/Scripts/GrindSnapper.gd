@@ -17,34 +17,36 @@ func _ready():
 	set_as_toplevel(true)
 	zoom = Camera.zoom
 	grid_size = get_viewport().size * zoom
-	LevelGenerator.set_gridsize(grid_size)
 	half_grid = grid_size/2
 	position.x = CameraStart.position.x - half_grid.x
 	position.y = CameraStart.position.y - grid_size.y + 280
 	ViewField.position.x = grid_size.x / 2
 	ViewField.position.y = grid_size.y / 2
-	LevelGenerator.set_gridsize(grid_size)
 	pass
 
 func _on_Left_entered(body):
 	if body == Player:
 		position.x -= grid_size.x - grid_modX
+		LevelGenerator.set_current_pos("left")
 	pass
 
 
 func _on_Right_entered(body):
 	if body == Player:
 		position.x += grid_size.x - grid_modX
+		LevelGenerator.set_current_pos("right")
 	pass
 
 
 func _on_Bottom_entered(body):
 	if body == Player:
 		position.y += grid_size.y - grid_modY
+		LevelGenerator.set_current_pos("down")
 	pass
 
 
 func _on_Top_entered(body):
 	if body == Player:
 		position.y -= grid_size.y - grid_modY
+		LevelGenerator.set_current_pos("up")
 	pass

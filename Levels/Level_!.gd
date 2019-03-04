@@ -18,7 +18,7 @@ var rooms_Bottom = 0
 var current_rooms = []
 
 func _ready():
-	LevelGenerator.create_grid(Width,Height)
+	LevelGenerator.create_grid( Width, Height)
 	set_fog_size()
 	spawn_rooms()
 	pass

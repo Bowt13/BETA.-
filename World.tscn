@@ -4,7 +4,7 @@
 [ext_resource path="res://Levels/Level.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player/Scenes/Player.tscn" type="PackedScene" id=3]
 
-[node name="World" type="Node2D" index="0"]
+[node name="World" type="Node2D"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Material", "Transform" ]
@@ -37,8 +37,8 @@ position = Vector2( -944, -768 )
 scale = Vector2( 1.75, 1.75 )
 collision_mask = 7
 
-[connection signal="share_Physics" from="." to="Player" method="_on_World_share_Physics"]
-
 [connection signal="share_Physics" from="." to="Level" method="_on_World_share_Physics"]
+
+[connection signal="share_Physics" from="." to="Player" method="_on_World_share_Physics"]
 
 
