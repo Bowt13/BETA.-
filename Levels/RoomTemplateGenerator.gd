@@ -144,7 +144,7 @@ func _ready():
 		dir.open("res://")
 		dir.make_dir("res://Saves")
 	if Load_on_Run:
-		GameData = RoomTemplate.load_json(path)
+		load_room()
 	if Save_on_Run and !Generate_All_Openings:
 		save_room()
 	if Generate_All_Openings:
@@ -274,7 +274,13 @@ func set_path():
 
 func set_roomType():
 	find_openings()
-	var type = (""+ str(L_O) +"_"+ str(R_O) +"_"+ str(T_O) +"_"+ str(B_O) +"")
+	var type	= 	{
+			"U"	: 	T_O,
+			"R"	: 	R_O,
+			"D"	: 	B_O,
+			"L"	: 	L_O
+		}
+	print(type)
 	RoomType = type
 	pass
 
@@ -319,6 +325,17 @@ func gerate_rooms_for_all_openings():
 					save_room()
 					load_room()
 					reset_room()
+			### LEFT RIGHT BOTTOM
+			for b_opening in b_openings:
+				for b_tile in b_opening:
+					$Foreground/Wall.set_cell(b_tile.x, b_tile.y, -1)
+				for r_tile in r_opening:
+					$Foreground/Wall.set_cell(r_tile.x, r_tile.y, -1)
+				for l_tile in l_opening:
+					$Foreground/Wall.set_cell(l_tile.x, l_tile.y, -1)
+				save_room()
+				load_room()
+				reset_room()
 		### LEFT TOP
 		for t_opening in t_openings:
 			for t_tile in t_opening:
@@ -348,7 +365,7 @@ func gerate_rooms_for_all_openings():
 			save_room()
 			load_room()
 			reset_room()
-	"""
+
 	## RIGHT
 	for r_opening in r_openings:
 		for tile in r_opening:
@@ -374,6 +391,14 @@ func gerate_rooms_for_all_openings():
 				save_room()
 				load_room()
 				reset_room()
+		for b_opening in b_openings:
+			for b_tile in b_opening:
+				$Foreground/Wall.set_cell(b_tile.x, b_tile.y, -1)
+			for r_tile in r_opening:
+				$Foreground/Wall.set_cell(r_tile.x, r_tile.y, -1)
+			save_room()
+			load_room()
+			reset_room()
 	## TOP
 	for t_opening in t_openings:
 		for tile in t_opening:
@@ -397,7 +422,6 @@ func gerate_rooms_for_all_openings():
 		load_room()
 		reset_room()
 		pass
-	"""
 	pass
 
 func reset_room():
@@ -407,7 +431,7 @@ func reset_room():
 	pass
 
 func save_room():
-	print("SAVING ...")
+#	print("SAVING ...")
 	set_roomCells()
 	set_roomType()
 	RoomTemplate.save_file(path, get_gameData(RoomType, RoomCells))
@@ -415,10 +439,10 @@ func save_room():
 	pass
 
 func load_room():
-	print("LOADING ...")
+#	print("LOADING ...")
 	var my_json_object = RoomTemplate.load_json(path)
 	GameData = my_json_object
-	print("LOAD SUCCESSFUL")
+#	print("LOAD SUCCESSFUL")
 	if !Save_on_Run:
 		get_tree().quit()
 	pass
