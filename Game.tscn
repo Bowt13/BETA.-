@@ -146,6 +146,7 @@ tracks/0/keys = {
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Material", "Rect", "Transform", "Visibility" ]
+is_test = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
 

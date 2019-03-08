@@ -7,23 +7,26 @@ onready var Spawners	= $Spawners
 func init(new_layout):
 	var offset = 0
 ## GENERATE POSITION
-	if new_layout.has("room_number"):
-		if new_layout.has("room_side"):
-			offset = get_room_offset(new_layout)
+	if new_layout.has("pos"):
+		offset = get_room_offset(new_layout)
 
 ## GENERATE BACKGROUND
 	if new_layout.has("Background"):
 		for position in new_layout.Background:
 			var new_pos = $Background/Wall.map_to_world(position)
-			new_pos.x += offset
+			new_pos.x += offset.x
+			new_pos.y += offset.y
 			new_pos = $Background/Wall.world_to_map(new_pos)
 			$Background/Wall.set_cellv(new_pos, 0)
 ## GENERATE FOREGROUND
 	if new_layout.has("Foreground"):
 	## GENERATE WALL
 		for position in new_layout.Foreground:
-			var new_pos = $Foreground/Wall.map_to_world(position)
+			var pos_arr = position.replace("(", "").replace(")", "").split(",")
+			var pos = Vector2(pos_arr[0], pos_arr[1])
+			var new_pos = $Foreground/Wall.map_to_world(pos)
 			new_pos.x += offset.x
+			new_pos.y += offset.y
 			new_pos = $Foreground/Wall.world_to_map(new_pos)
 			$Foreground/Wall.set_cellv(new_pos, 0)
 		
@@ -32,16 +35,10 @@ func init(new_layout):
 	pass
 
 func get_room_offset(new_layout):
-	var offset
-## GET OFFSEET FOR LEFT AND RIGHT ROOMS
-	if new_layout.room_side == "R" or new_layout.room_side == "L":
-		offset = Vector2(new_layout.room_number * 1792, 0)
-	if new_layout.room_side == "R":
-		return(offset)
-	if new_layout.room_side == "L":
-		if new_layout.is_last:
-			offset.x -= 128
-		return(-offset)
+## GET OFFSET ROOMS
+	print(new_layout.pos)
+	var offset = Vector2(new_layout.pos.x * (1920-128), new_layout.pos.y * (960-64))
+	return(offset)
 	pass
 
 func get_room_global_pos():

@@ -126,7 +126,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
-[node name="Player" type="KinematicBody2D" index="0" groups=[
+[node name="Player" type="KinematicBody2D" groups=[
 "Player",
 ]]
 
@@ -346,6 +346,7 @@ script = ExtResource( 24 )
 
 [node name="Body" type="CollisionShape2D" parent="." index="7"]
 
+editor/display_folded = true
 position = Vector2( 0.5, 0 )
 z_index = 2
 shape = SubResource( 7 )
@@ -422,9 +423,9 @@ autostart = false
 
 [connection signal="player_hit" from="." to="Player_Timers/Hit_timer" method="_on_Player_player_hit"]
 
-[connection signal="share_Physics" from="." to="StatesHandler/Airborn" method="_on_Player_share_Physics"]
-
 [connection signal="share_Physics" from="." to="MovementHandler" method="_on_Player_share_Physics"]
+
+[connection signal="share_Physics" from="." to="StatesHandler/Airborn" method="_on_Player_share_Physics"]
 
 [connection signal="aim_state" from="InputHandler" to="StatesHandler" method="_on_new_aim_state"]
 

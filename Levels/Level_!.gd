@@ -2,7 +2,6 @@ extends Node2D
 
 signal share_Physics
 
-var Room_Resource = preload("res://Levels/RoomResource/RoomResource.gd")
 var Room_Type
 
 var rest_rooms = 0
@@ -14,9 +13,12 @@ var rooms_Bottom = 0
 
 var current_rooms = []
 
+
 func _ready():
 	set_fog_size()
-	spawn_rooms()
+	current_rooms = LevelGenerator.get_room_templates()
+	for room in current_rooms:
+		spawn_rooms(room)
 	pass
 
 func set_fog_size():
@@ -47,61 +49,18 @@ func get_fog_mod(value):
 	return(x)
 	pass
 
-func spawn_rooms():
-	Room_Type = Room_Resource.new()
+func spawn_rooms(var room):
 	## GENERATE ROOMS TO THE RIGHT
-	for x in range(rooms_Right):
-		var new_layout
-		var is_last_R = false
-		if x == rooms_Right - 1:
-			is_last_R = true
-		if is_last_R:
-			new_layout = {
-				room_number = x+1,
-				room_side = "R",
-				Background = 0,
-				Foreground = Room_Type['_1_0_0_0']['room_1'].Foreground,
-				Spawners = 0,
-				is_last = true
-				}
-		else:
-			new_layout = {
-				room_number = x+1,
-				room_side = "R",
-				Background = 0,
-				Foreground = Room_Type['_1_1_0_0']['room_1'].Foreground,
-				Spawners = 0,
-				is_last = false
-				}
-		$Rooms.init(new_layout)
-
-## GENERATE ROOMS TO THE LEFT
-	for x in range(rooms_Left):
-		var new_layout
-		var is_last_L = false
-		if x == rooms_Left - 1:
-			is_last_L = true
-		if is_last_L:
-			new_layout = {
-				room_number = x+1,
-				room_side = "L",
-				Background = 0,
-				Foreground = Room_Type['_0_1_0_0']['room_1'].Foreground,
-				Spawners = 0,
-				is_last = true
-				}
-		else:
-			new_layout = {
-				room_number = x+1,
-				room_side = "L",
-				Background = 0,
-				Foreground = Room_Type['_1_1_0_0']['room_1'].Foreground,
-				Spawners = 0,
-				is_last = false
-				}
-		$Rooms.init(new_layout)
-		for pos in $Rooms.get_room_global_pos():
-			$Rooms/Foreground/Wall.set_cellv($Rooms/Foreground/Wall.world_to_map(pos), 0)
+	var new_layout = {
+			pos = room.pos,
+			Background = 0,
+			Foreground = room.template.RoomCells,
+			Spawners = 0,
+			is_last = false
+			}
+	$Rooms.init(new_layout)
+	for pos in $Rooms.get_room_global_pos():
+		$Rooms/Foreground/Wall.set_cellv($Rooms/Foreground/Wall.world_to_map(pos), 0)
 	$Rooms.autotile_all($Rooms)
 	pass
 
@@ -109,6 +68,8 @@ func autotile(TileMap):
 	TileMap.update_bitmask_region()
 	pass
 
-func _on_World_share_Physics(new_Physics):
-
+func set_new_rooms():
+	current_rooms = LevelGenerator.get_room_templates()
+	for room in current_rooms:
+		spawn_rooms(room)
 	pass

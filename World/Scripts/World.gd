@@ -9,11 +9,13 @@ export (float, 0, 1) var GLIDE_RATIO
 
 var Physics
 
-func _ready():
-	_init()
-	pass
+var checker = 0
 
 func _init():
+
+	pass
+
+func _ready():
 	Physics = {
 		Up				= UP,
 		Gravity			= GRAVITY,

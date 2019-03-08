@@ -106,22 +106,22 @@ var B_O = 0
 var l_opening_1	= [Vector2(-28, -15),Vector2(-28, -14),Vector2(-28, -13),Vector2(-28, -12)]
 var l_opening_2	= [Vector2(-28, -19),Vector2(-28, -18),Vector2(-28, -17),Vector2(-28, -16)]
 var l_opening_3	= [Vector2(-28, -23),Vector2(-28, -22),Vector2(-28, -21),Vector2(-28, -20)]
-var l_openings	= [l_opening_1, l_opening_2, l_opening_3]
+var l_openings	= [l_opening_1]
 ### RIGHT
 var r_opening_1	= [Vector2(-1, -15),Vector2(-1, -14),Vector2(-1, -13),Vector2(-1, -12)]
 var r_opening_2	= [Vector2(-1, -19),Vector2(-1, -18),Vector2(-1, -17),Vector2(-1, -16)]
 var r_opening_3	= [Vector2(-1, -23),Vector2(-1, -22),Vector2(-1, -21),Vector2(-1, -20)]
-var r_openings	= [r_opening_1, r_opening_2, r_opening_3]
+var r_openings	= [r_opening_1]
 ### TOP
 var t_opening_1	= [Vector2(-26, -24),Vector2(-25, -24),Vector2(-24, -24),Vector2(-23, -24),Vector2(-22, -24),Vector2(-21, -24),Vector2(-20, -24),Vector2(-19, -24)]
 var t_opening_2	= [Vector2(-18, -24),Vector2(-17, -24),Vector2(-16, -24),Vector2(-15, -24),Vector2(-14, -24),Vector2(-13, -24),Vector2(-12, -24),Vector2(-11, -24)]
 var t_opening_3	= [Vector2(-10, -24),Vector2(-9, -24),Vector2(-8, -24),Vector2(-7, -24),Vector2(-6, -24),Vector2(-5, -24),Vector2(-4, -24),Vector2(-3, -24)]
-var t_openings	= [t_opening_1, t_opening_2, t_opening_3]
+var t_openings	= [t_opening_1]
 ### BOTTOM
 var b_opening_1	= [Vector2(-26, -11),Vector2(-25, -11),Vector2(-24, -11),Vector2(-23, -11),Vector2(-22, -11),Vector2(-21, -11),Vector2(-20, -11),Vector2(-19, -11)]
 var b_opening_2	= [Vector2(-18, -11),Vector2(-17, -11),Vector2(-16, -11),Vector2(-15, -11),Vector2(-14, -11),Vector2(-13, -11),Vector2(-12, -11),Vector2(-11, -11)]
 var b_opening_3	= [Vector2(-10, -11),Vector2(-9, -11),Vector2(-8, -11),Vector2(-7, -11),Vector2(-6, -11),Vector2(-5, -11),Vector2(-4, -11),Vector2(-3, -11)]
-var b_openings	= [b_opening_1, b_opening_2, b_opening_3]
+var b_openings	= [b_opening_1]
 
 export(bool) var Save_on_Run = true
 export(bool) var Reset_Rooms
@@ -275,10 +275,10 @@ func set_path():
 func set_roomType():
 	find_openings()
 	var type	= 	{
-			"U"	: 	T_O,
+			"L"	: 	L_O,
 			"R"	: 	R_O,
-			"D"	: 	B_O,
-			"L"	: 	L_O
+			"U"	: 	T_O,
+			"D"	: 	B_O
 		}
 	print(type)
 	RoomType = type
