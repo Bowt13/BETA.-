@@ -16,6 +16,7 @@ var current_pos = Vector2(0, 0)
 
 ## ROOMS
 var rooms = []
+var set_rooms_pos = []
 var room = {
 	"start"	:	false,
 	"end"	:	false,
@@ -55,6 +56,14 @@ func _init():
 
 func _ready():
 	set_start_room()
+	var temp_rooms = rooms
+	var counter = 0 
+	for room in temp_rooms:
+		if !set_rooms_pos.has(room.pos) and counter < 5:
+			counter +=1
+			set_rooms_around(room)
+			set_room_templates()
+	print_rooms("all")
 	pass
 
 ## PRINTER
@@ -86,17 +95,12 @@ func set_current_pos(var direction):
 		"down":
 			current_pos.y += 1
 	#check if rooms arround are 
-	for room in rooms:
-		print(room.pos, current_pos)
-		print(room.pos == current_pos)
-		if room.pos == current_pos:
-			print("CJECL")
-			set_rooms_around(room)
-			set_room_templates()
+
 	pass
 
 ## ROOMS
 func init_room_template():
+	
 	var x = {
 	"start"	:	false,
 	"end"	:	false,
@@ -117,7 +121,6 @@ func set_start_room():
 	room.type = get_type(room)
 	rooms.push_front(room.duplicate())
 	set_rooms_around(room)
-	set_room_templates()
 	pass
 
 func get_type(var room):
@@ -148,24 +151,16 @@ func get_type(var room):
 		if	used_room.pos == up_pos:
 			if used_room.type["D"] != 0:
 				U = used_room.type["D"]
-			else:
-				U = -1
 		if	used_room.pos == down_pos:
 			if used_room.type["U"] != 0:
 				D = used_room.type["U"]
-			else:
-				D = -1
 		# HORIZONTAL
 		if	used_room.pos == left_pos:
 			if used_room.type["R"] != 0:
 				L = used_room.type["R"]
-			else:
-				L = -1
 		if	used_room.pos == right_pos:
 			if used_room.type["L"] != 0:
 				R = used_room.type["L"]
-			else:
-				R = -1
 
 	# VERTICAL
 	## UP
@@ -199,7 +194,7 @@ func get_type(var room):
 	var check = 0
 	for value in type.values():
 		check += value
-	if check <= 1:
+	if check < 1:
 		print_error("not enough openings in room")
 		return(get_type(room))
 	else:
@@ -210,6 +205,7 @@ func set_rooms_around(var room):
 	for direction in room.type.keys():
 		if room.type[direction] == 1:
 			var temp_room = init_room_template()
+			temp_room.pos = room.pos
 			match direction:
 				"L":
 					temp_room.pos.x -= 1
@@ -221,6 +217,7 @@ func set_rooms_around(var room):
 					temp_room.pos.y += 1
 			temp_room.type = get_type(temp_room)
 			rooms.push_back(temp_room.duplicate())
+	set_rooms_pos.push_back(room.pos)
 	pass
 
 func load_templates():

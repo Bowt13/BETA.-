@@ -6,9 +6,9 @@ var Room_Type
 
 var rest_rooms = 0
 
-var rooms_Right = 1
+var rooms_Right = 40
 var rooms_Left = 1
-var rooms_Top = 0
+var rooms_Top = 40
 var rooms_Bottom = 0
 
 var current_rooms = []

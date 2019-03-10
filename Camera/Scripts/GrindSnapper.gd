@@ -3,8 +3,8 @@ extends Position2D
 var zoom
 var grid_size
 var half_grid
-var grid_modX = 128
-var grid_modY = 303
+var grid_modX = 64 * 2
+var grid_modY = 64 * 1
 
 onready var Player = $"../World/Player"
 onready var Level = $"../World/Level"
@@ -19,9 +19,8 @@ func _ready():
 	zoom = Camera.zoom
 	grid_size = get_viewport().size * zoom
 	half_grid = grid_size/2
-	print(1920 - 1792)
 	position.x = CameraStart.position.x - half_grid.x
-	position.y = CameraStart.position.y - grid_size.y + 280
+	position.y = CameraStart.position.y - grid_size.y + (32*9)
 	ViewField.position.x = grid_size.x / 2
 	ViewField.position.y = grid_size.y / 2
 	print(grid_size)
