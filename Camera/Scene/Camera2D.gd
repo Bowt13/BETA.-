@@ -6,6 +6,8 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	if delta != delta:
+		print(delta)
 	if is_current() and Globals.currentCamera != self:
 		Globals.currentCamera = self
 	pass

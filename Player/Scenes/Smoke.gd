@@ -4,6 +4,8 @@ var previous_lifetime = 1
 onready var Gun = $"../"
 
 func _physics_process(delta):
+	if delta != delta:
+		print(delta)
 	check_lifetime()
 	global_position = Gun.get_node("GunAiming/GunRotator/Sprite/BarrelEnd").global_position
 	pass

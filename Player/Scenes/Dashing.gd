@@ -10,8 +10,6 @@ signal dash_changed
 var set_dash_amount
 
 var state = false
-var STOP = Vector2(0,-300)
-var max_vec_spd
 var vec_spd
 
 var mouse_pos
@@ -22,7 +20,6 @@ onready var Dash_Anim		= $Dash/Anim
 
 onready var Wait_timer		= $Recharge/Wait_timer
 
-onready var Player			= $"../../../"
 onready var Invincible		= $"../../Status/Invincible"
 onready var Movement		= $"../../../MovementHandler"
 onready var Player_pos		= $"../../../PlayerPos"
@@ -38,22 +35,23 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	mouse_pos = get_global_mouse_position()
-	if !state and dash_amount >= 100 and is_charging == true:
-		exit_charging()
-		$Aim.cast_beam()
-		pass
-	if state:
-		if Wait_timer.time_left > 0:
-			$Recharge.exit()
-		Movement.dash(vec_spd)
-		Movement.set_glide_multiplier(1)
-		Wait_timer.stop()
-		Wait_timer.start()
-	if $Recharge.state:
-		if set_dash_amount <= dash_amount:
-			$Recharge.exit()
-	emit_signal("dash_changed", dash_amount)
+	if delta:
+		mouse_pos = get_global_mouse_position()
+		if !state and dash_amount >= 100 and is_charging == true:
+			exit_charging()
+			$Aim.cast_beam()
+			pass
+		if state:
+			if Wait_timer.time_left > 0:
+				$Recharge.exit()
+			Movement.dash(vec_spd)
+			Movement.set_glide_multiplier(1)
+			Wait_timer.stop()
+			Wait_timer.start()
+		if $Recharge.state:
+			if set_dash_amount <= dash_amount:
+				$Recharge.exit()
+		emit_signal("dash_changed", dash_amount)
 	pass
 
 func enter_charging():
@@ -99,13 +97,13 @@ func get_motion():
 	pass
 
 func emit():
-	Particles.look_at(get_global_mouse_position())
-	Particles.global_rotation_degrees += 180
-	Particles.set_emitting(true)
+	Dash_Particles.look_at(get_global_mouse_position())
+	Dash_Particles.global_rotation_degrees += 180
+	Dash_Particles.set_emitting(true)
 	pass
 
 func stop_emit():
-	Particles.set_emitting(false)
+	Dash_Particles.set_emitting(false)
 	pass
 
 func _on_Charge_timer_timeout():

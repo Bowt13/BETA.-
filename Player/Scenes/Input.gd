@@ -39,12 +39,13 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	get_input()
-	process_gun_input()
-	process_movement_input()
-	process_jump_input()
-	process_slide_input()
-	process_menu_input()
+	if delta:
+		get_input()
+		process_gun_input()
+		process_movement_input()
+		process_jump_input()
+		process_slide_input()
+		process_menu_input()
 	pass
 
 func get_input():

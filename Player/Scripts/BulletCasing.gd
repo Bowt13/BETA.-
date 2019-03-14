@@ -18,6 +18,8 @@ func eject(parent, dir):
 	pass
 
 func _physics_process(delta):
+	if delta != delta:
+		print(delta)
 	var area_bodies = $Area2D.get_overlapping_bodies()
 	for body in area_bodies:
 		if "Wall" in body.name:

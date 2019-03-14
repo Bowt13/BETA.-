@@ -15,6 +15,8 @@ func _on_Player_share_Physics(new_Physics):
 	pass
 
 func _physics_process(delta):
+	if delta != delta:
+		print(delta)
 	if false in Movement.airborn:
 		if state:
 			exit()

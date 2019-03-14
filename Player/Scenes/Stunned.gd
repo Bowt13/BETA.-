@@ -3,7 +3,6 @@ extends Node2D
 var state = false
 
 export (int, 1, 20) var stun_dur
-onready var Movement = $'../../../MovementHandler'
 
 func _ready():
 	stun_dur *= 100

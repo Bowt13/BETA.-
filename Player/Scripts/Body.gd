@@ -1,7 +1,6 @@
 extends CollisionShape2D
 
 onready var Player = $"../"
-onready var aiming = $"../StatesHandler/Aiming"
 
 onready var sprite_scale = $Sprite.scale.x
 
@@ -13,6 +12,8 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	if delta != delta:
+		print(delta)
 	change_look_dir()
 	pass
 

@@ -32,84 +32,39 @@
 [ext_resource path="res://Player/Scenes/Hit_time.gd" type="Script" id=30]
 
 [sub_resource type="Gradient" id=1]
-
 offsets = PoolRealArray( 0, 0.998055 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="GradientTexture" id=2]
-
-flags = 4
 gradient = SubResource( 1 )
-width = 2048
 
 [sub_resource type="Curve" id=3]
-
-min_value = 0.0
 max_value = 20.0
-bake_resolution = 100
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 9.81446 ), 26.8107, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=4]
-
-flags = 4
-width = 2048
 curve = SubResource( 3 )
 
 [sub_resource type="ParticlesMaterial" id=5]
-
 resource_local_to_scene = true
-render_priority = 0
-trail_divisor = 1
-emission_shape = 0
-flag_align_y = false
-flag_rotate_y = false
 flag_disable_z = true
 spread = 50.0
-flatness = 0.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 200.0
-initial_velocity_random = 0.0
 angular_velocity = 0.0
-angular_velocity_random = 0.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-linear_accel = 0.0
-linear_accel_random = 0.0
-radial_accel = 0.0
-radial_accel_random = 0.0
-tangential_accel = 0.0
-tangential_accel_random = 0.0
-damping = 0.0
-damping_random = 0.0
-angle = 0.0
-angle_random = 0.0
 scale = 2.0
-scale_random = 0.0
 scale_curve = SubResource( 4 )
 color_ramp = SubResource( 2 )
-hue_variation = 0.0
-hue_variation_random = 0.0
-anim_speed = 0.0
-anim_speed_random = 0.0
-anim_offset = 0.0
-anim_offset_random = 0.0
-anim_loop = false
-_sections_unfolded = [ "Angle", "Color", "Gravity", "Hue Variation", "Initial Velocity", "Resource", "Scale", "Spread", "Trail" ]
 
 [sub_resource type="Animation" id=6]
-
 resource_name = "Fade"
-length = 1.0
-loop = false
-step = 0.1
 
 [sub_resource type="RectangleShape2D" id=7]
-
-custom_solver_bias = 0.0
 extents = Vector2( 9, 30 )
 
 [sub_resource type="Animation" id=8]
-
 length = 10.0
 loop = true
 step = 1.0
@@ -129,338 +84,202 @@ tracks/0/keys = {
 [node name="Player" type="KinematicBody2D" groups=[
 "Player",
 ]]
-
-input_pickable = false
 collision_layer = 14
 collision_mask = 2
-collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision", "Pickable", "Transform", "Visibility" ]
 
-[node name="PlayerPos" type="Position2D" parent="." index="0"]
+[node name="PlayerPos" type="Position2D" parent="."]
 
-[node name="InputHandler" type="Node2D" parent="." index="1"]
-
+[node name="InputHandler" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
-[node name="OnHitHandler" type="Node2D" parent="." index="2"]
-
+[node name="OnHitHandler" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
-[node name="StatesHandler" type="Node2D" parent="." index="3"]
-
+[node name="StatesHandler" type="Node2D" parent="."]
 editor/display_folded = true
 script = ExtResource( 4 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="Idle" type="Node2D" parent="StatesHandler" index="0"]
-
+[node name="Idle" type="Node2D" parent="StatesHandler"]
 script = ExtResource( 5 )
 
-[node name="Move" type="Node2D" parent="StatesHandler" index="1"]
-
+[node name="Move" type="Node2D" parent="StatesHandler"]
+editor/display_folded = true
 script = ExtResource( 6 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="Walking" type="Node2D" parent="StatesHandler/Move" index="0"]
-
+[node name="Walking" type="Node2D" parent="StatesHandler/Move"]
 script = ExtResource( 7 )
 walk_spd = 10
 
-[node name="Dashing" type="Node2D" parent="StatesHandler/Move" index="1"]
-
+[node name="Dashing" type="Node2D" parent="StatesHandler/Move"]
 script = ExtResource( 8 )
-_sections_unfolded = [ "Transform" ]
 dash_spd = 35
 dash_amount = 3
 time_regen = 10
 shot_regen = 10
 
-[node name="Dash" type="Node2D" parent="StatesHandler/Move/Dashing" index="0"]
+[node name="Dash" type="Node2D" parent="StatesHandler/Move/Dashing"]
 
-editor/display_folded = true
-
-[node name="Timer" type="Timer" parent="StatesHandler/Move/Dashing/Dash" index="0"]
-
-process_mode = 1
+[node name="Timer" type="Timer" parent="StatesHandler/Move/Dashing/Dash"]
 wait_time = 0.2
 one_shot = true
-autostart = false
 
-[node name="Particles" parent="StatesHandler/Move/Dashing/Dash" index="1" instance=ExtResource( 9 )]
-
+[node name="Particles" parent="StatesHandler/Move/Dashing/Dash" instance=ExtResource( 9 )]
 lifetime = 0.2
 process_material = SubResource( 5 )
 
-[node name="Anim" type="AnimationPlayer" parent="StatesHandler/Move/Dashing/Dash" index="2"]
-
-root_node = NodePath("..")
-autoplay = ""
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
+[node name="Anim" type="AnimationPlayer" parent="StatesHandler/Move/Dashing/Dash"]
 anims/Fade = SubResource( 6 )
-blend_times = [  ]
-_sections_unfolded = [ "Playback Options" ]
 
-[node name="Recharge" type="Node2D" parent="StatesHandler/Move/Dashing" index="1"]
-
+[node name="Recharge" type="Node2D" parent="StatesHandler/Move/Dashing"]
 editor/display_folded = true
 script = ExtResource( 10 )
 
-[node name="Wait_timer" type="Timer" parent="StatesHandler/Move/Dashing/Recharge" index="0"]
-
-process_mode = 1
-wait_time = 1.0
+[node name="Wait_timer" type="Timer" parent="StatesHandler/Move/Dashing/Recharge"]
 one_shot = true
-autostart = false
 
-[node name="Charge_timer" type="Timer" parent="StatesHandler/Move/Dashing/Recharge" index="1"]
-
-process_mode = 1
+[node name="Charge_timer" type="Timer" parent="StatesHandler/Move/Dashing/Recharge"]
 wait_time = 0.05
-one_shot = false
 autostart = true
 
-[node name="Aim" type="Node2D" parent="StatesHandler/Move/Dashing" index="2"]
-
+[node name="Aim" type="Node2D" parent="StatesHandler/Move/Dashing"]
 script = ExtResource( 11 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="Rotator" type="Node2D" parent="StatesHandler/Move/Dashing/Aim" index="0"]
+[node name="Rotator" type="Node2D" parent="StatesHandler/Move/Dashing/Aim"]
 
-[node name="Aim_pos" type="Position2D" parent="StatesHandler/Move/Dashing/Aim/Rotator" index="0"]
-
+[node name="Aim_pos" type="Position2D" parent="StatesHandler/Move/Dashing/Aim/Rotator"]
 modulate = Color( 0.078125, 1, 0, 1 )
 position = Vector2( 100, 0 )
-_sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Beam" type="Node2D" parent="StatesHandler/Move/Dashing/Aim" index="1"]
+[node name="Beam" type="Node2D" parent="StatesHandler/Move/Dashing/Aim"]
 
-_sections_unfolded = [ "Transform" ]
+[node name="AimBeam" parent="StatesHandler/Move/Dashing/Aim/Beam" instance=ExtResource( 12 )]
 
-[node name="AimBeam" parent="StatesHandler/Move/Dashing/Aim/Beam" index="0" instance=ExtResource( 12 )]
-
-_sections_unfolded = [ "Angular", "Applied Forces", "Collision", "Linear", "Pickable", "Transform", "Visibility" ]
-
-[node name="Jumping" type="Node2D" parent="StatesHandler" index="2"]
-
+[node name="Jumping" type="Node2D" parent="StatesHandler"]
 script = ExtResource( 13 )
 jump_height = 20
 
-[node name="Sliding" type="Node2D" parent="StatesHandler" index="3"]
-
+[node name="Sliding" type="Node2D" parent="StatesHandler"]
 script = ExtResource( 14 )
 
-[node name="Status" type="Node2D" parent="StatesHandler" index="4"]
-
+[node name="Status" type="Node2D" parent="StatesHandler"]
 editor/display_folded = true
 script = ExtResource( 15 )
 
-[node name="Stunned" type="Node2D" parent="StatesHandler/Status" index="0"]
-
+[node name="Stunned" type="Node2D" parent="StatesHandler/Status"]
 script = ExtResource( 16 )
 stun_dur = 8
 
-[node name="Invincible" type="Node2D" parent="StatesHandler/Status" index="1"]
-
+[node name="Invincible" type="Node2D" parent="StatesHandler/Status"]
 editor/display_folded = true
 script = ExtResource( 17 )
 inv_dur = 8
 
-[node name="Delay_timer" type="Timer" parent="StatesHandler/Status/Invincible" index="0"]
-
-process_mode = 1
+[node name="Delay_timer" type="Timer" parent="StatesHandler/Status/Invincible"]
 wait_time = 0.3
 one_shot = true
-autostart = false
 
-[node name="Aiming" type="Node2D" parent="StatesHandler" index="5"]
-
+[node name="Aiming" type="Node2D" parent="StatesHandler"]
 script = ExtResource( 18 )
 
-[node name="Airborn" type="Node2D" parent="StatesHandler" index="6"]
-
+[node name="Airborn" type="Node2D" parent="StatesHandler"]
 script = ExtResource( 19 )
 
-[node name="MovementHandler" type="Node2D" parent="." index="4"]
-
+[node name="MovementHandler" type="Node2D" parent="."]
 editor/display_folded = true
 script = ExtResource( 20 )
-accel_spd = 2
 
-[node name="Bottom" type="Node2D" parent="MovementHandler" index="0"]
-
+[node name="Bottom" type="Node2D" parent="MovementHandler"]
 editor/display_folded = true
 
-[node name="Ground_ray1" type="RayCast2D" parent="MovementHandler/Bottom" index="0"]
-
+[node name="Ground_ray1" type="RayCast2D" parent="MovementHandler/Bottom"]
 position = Vector2( 12, 30 )
 enabled = true
-exclude_parent = true
 cast_to = Vector2( 0, 2 )
-collision_mask = 1
 script = ExtResource( 21 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="Ground_ray2" type="RayCast2D" parent="MovementHandler/Bottom" index="1"]
-
+[node name="Ground_ray2" type="RayCast2D" parent="MovementHandler/Bottom"]
 position = Vector2( -11.5, 30 )
 enabled = true
-exclude_parent = true
 cast_to = Vector2( 0, 2 )
-collision_mask = 1
 script = ExtResource( 21 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="Left" type="Node2D" parent="MovementHandler" index="1"]
-
+[node name="Left" type="Node2D" parent="MovementHandler"]
 editor/display_folded = true
 
-[node name="Left_ray" type="RayCast2D" parent="MovementHandler/Left" index="0"]
-
+[node name="Left_ray" type="RayCast2D" parent="MovementHandler/Left"]
 position = Vector2( -11.5, 30 )
 enabled = true
-exclude_parent = true
 cast_to = Vector2( 0, 2 )
-collision_mask = 1
 script = ExtResource( 21 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="GunHandler" type="Node2D" parent="." index="5"]
-
+[node name="GunHandler" type="Node2D" parent="."]
 editor/display_folded = true
 script = ExtResource( 22 )
 Gun_scene = ExtResource( 23 )
 
-[node name="Dual_timer" type="Timer" parent="GunHandler" index="0"]
-
-process_mode = 1
+[node name="Dual_timer" type="Timer" parent="GunHandler"]
 wait_time = 0.4
 one_shot = true
-autostart = false
 
-[node name="HealthHandler" type="Node2D" parent="." index="6"]
-
+[node name="HealthHandler" type="Node2D" parent="."]
 script = ExtResource( 24 )
 
-[node name="Body" type="CollisionShape2D" parent="." index="7"]
-
+[node name="Body" type="CollisionShape2D" parent="."]
 editor/display_folded = true
 position = Vector2( 0.5, 0 )
 z_index = 2
 shape = SubResource( 7 )
 script = ExtResource( 25 )
-_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 Turn_Time = 0.05
 
-[node name="TurnHandler" type="Tween" parent="Body" index="0"]
+[node name="TurnHandler" type="Tween" parent="Body"]
 
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
-
-[node name="Sprite" type="Sprite" parent="Body" index="1"]
-
+[node name="Sprite" type="Sprite" parent="Body"]
 scale = Vector2( 1.6, 1.6 )
 texture = ExtResource( 26 )
 hframes = 10
-_sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform", "Visibility" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Body" index="2"]
-
-root_node = NodePath("..")
-autoplay = ""
-playback_process_mode = 1
-playback_default_blend_time = 0.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
 playback_speed = 0.0
 anims/Player_idle = SubResource( 8 )
-blend_times = [  ]
-_sections_unfolded = [ "Playback Options" ]
 
-[node name="GhostTrail" parent="." index="8" instance=ExtResource( 27 )]
-
-_sections_unfolded = [ "Visibility" ]
+[node name="GhostTrail" parent="." instance=ExtResource( 27 )]
 set_opacity = 0.11
 
-[node name="Player_Timers" type="Node2D" parent="." index="9"]
-
-editor/display_folded = true
+[node name="Player_Timers" type="Node2D" parent="."]
 script = ExtResource( 28 )
 
-[node name="Inv_timer" type="Timer" parent="Player_Timers" index="0"]
-
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
+[node name="Inv_timer" type="Timer" parent="Player_Timers"]
 script = ExtResource( 29 )
 
-[node name="Hit_timer" type="Timer" parent="Player_Timers" index="1"]
-
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
+[node name="Hit_timer" type="Timer" parent="Player_Timers"]
 script = ExtResource( 30 )
 
-[node name="Jump_timer" type="Timer" parent="Player_Timers" index="2"]
-
-process_mode = 1
+[node name="Jump_timer" type="Timer" parent="Player_Timers"]
 wait_time = 0.1
 one_shot = true
-autostart = false
 
-[node name="JumpCorrect_timer" type="Timer" parent="Player_Timers" index="3"]
-
-process_mode = 1
+[node name="JumpCorrect_timer" type="Timer" parent="Player_Timers"]
 wait_time = 0.05
 one_shot = true
-autostart = false
-
-[connection signal="player_hit" from="." to="Player_Timers/Hit_timer" method="_on_Player_player_hit"]
-
-[connection signal="share_Physics" from="." to="MovementHandler" method="_on_Player_share_Physics"]
 
 [connection signal="share_Physics" from="." to="StatesHandler/Airborn" method="_on_Player_share_Physics"]
-
+[connection signal="share_Physics" from="." to="MovementHandler" method="_on_Player_share_Physics"]
 [connection signal="aim_state" from="InputHandler" to="StatesHandler" method="_on_new_aim_state"]
-
 [connection signal="jump_state" from="InputHandler" to="StatesHandler" method="_on_new_jump_state"]
-
 [connection signal="move_state" from="InputHandler" to="StatesHandler" method="_on_new_move_state"]
-
 [connection signal="pull_trigger" from="InputHandler" to="GunHandler" method="_pull_trigger"]
-
 [connection signal="release_trigger" from="InputHandler" to="GunHandler" method="_on_release_trigger"]
-
 [connection signal="timeout" from="StatesHandler/Move/Dashing/Dash/Timer" to="StatesHandler/Move/Dashing" method="exit"]
-
 [connection signal="timeout" from="StatesHandler/Move/Dashing/Recharge/Wait_timer" to="StatesHandler/Move/Dashing/Recharge" method="_on_Wait_timer_timeout"]
-
 [connection signal="timeout" from="StatesHandler/Move/Dashing/Recharge/Charge_timer" to="StatesHandler/Move/Dashing" method="_on_Charge_timer_timeout"]
-
 [connection signal="timeout" from="StatesHandler/Status/Invincible/Delay_timer" to="StatesHandler/Status/Invincible" method="_on_Delay_timer_timeout"]
-
 [connection signal="on_ground" from="MovementHandler/Bottom/Ground_ray1" to="MovementHandler" method="_if_on_ground"]
-
 [connection signal="on_ground" from="MovementHandler/Bottom/Ground_ray2" to="MovementHandler" method="_if_on_ground"]
-
 [connection signal="on_ground" from="MovementHandler/Left/Left_ray" to="MovementHandler" method="_if_on_ground"]
-
 [connection signal="timeout" from="GunHandler/Dual_timer" to="GunHandler" method="_on_Dual_timer_timeout"]
-
 [connection signal="timeout" from="Player_Timers/Inv_timer" to="." method="_on_Inv_time_timeout"]
-
-[connection signal="player_unhit" from="Player_Timers/Hit_timer" to="." method="_on_Hit_time_player_unhit"]
-
 [connection signal="timeout" from="Player_Timers/Hit_timer" to="." method="_on_Hit_time_timeout"]
-
 [connection signal="timeout" from="Player_Timers/Jump_timer" to="." method="_on_Jump_timer_timeout"]
-
 [connection signal="timeout" from="Player_Timers/JumpCorrect_timer" to="." method="_on_JumpCorrect_timer_timeout"]
-
-

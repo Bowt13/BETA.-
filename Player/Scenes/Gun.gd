@@ -2,11 +2,6 @@ extends Node2D
 
 onready var Globals = $'/root/Game'.Globals
 
-var state = {
-	'unholstered': true,
-	'holstered': false,
-}
-
 #OWNER
 var Owner
 
@@ -27,8 +22,6 @@ var gun_reload_speed
 
 var barrel_pos
 var crosshair_pos
-var recoil_counter = 0
-var casing_ejector_pos
 
 #GUNTYPES
 var pstl = "pistol"
@@ -45,8 +38,6 @@ var this_bullet
 var bullet_speed = 50
 
 #CONDITIONALS
-var is_shooting = false
-var is_reloading = false
 var is_chambering = false
 
 func _ready():
@@ -57,6 +48,8 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	if delta != delta:
+		print(delta)
 	set_gun_type()
 	aim_gun()
 	pass
@@ -137,7 +130,7 @@ func can_shoot():
 		return(false)
 	pass
 
-func shoot(player_pos):
+func shoot():
 	if can_shoot():
 		$Sounds/Shot.play()
 		Globals.ScreenShaker.screen_shake(0.2, 5, 1)
@@ -157,7 +150,8 @@ func shoot(player_pos):
 
 func chamber():
 	is_chambering = true
-	$GunAiming/GunRotator/Sprite/CasingEjector.eject_casing(get_node("../../../CasingContainer"), $GunAiming/GunRotator/Sprite/CasingEjector/Position2D.global_position)
+	var container = get_node("../../../CasingContainer")
+	$GunAiming/GunRotator/Sprite/CasingEjector.eject_casing(container)
 
 func muzzle_flare():
 	if is_flipped():

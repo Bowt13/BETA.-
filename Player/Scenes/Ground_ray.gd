@@ -23,6 +23,8 @@ func has_children(node):
 	pass
 
 func _physics_process(delta):
+	if delta != delta:
+		print(delta)
 	check_collision()
 	pass
 

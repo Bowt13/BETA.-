@@ -4,7 +4,6 @@ var max_health	= 0	setget set_max_health
 var health 		= 0	setget set_health
 
 var health_node
-var hook
 
 func set_max_health(value):
 	max_health = value

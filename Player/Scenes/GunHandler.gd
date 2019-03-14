@@ -3,9 +3,6 @@ extends Node2D
 export(PackedScene) var Gun_scene
 
 var guns = []
-var aiming_Sprite
-var holster_Sprite
-var crosshair_Sprite
 var aiming
 var dual_wielding = false
 onready var Aiming = $'../StatesHandler/Aiming'
@@ -18,6 +15,8 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	if delta != delta:
+		print(delta)
 	if Aiming.state:
 		aiming = true
 	else:
@@ -99,9 +98,8 @@ func pull_trigger():
 	pass
 
 func _pull_trigger():
-	var counter = 0
 	if true in has_guns():
-		guns[0].shoot(Holder.get_node("PlayerPos").position)
+		guns[0].shoot()
 		if guns.size() > 1 and !dual_wielding and $Dual_timer.get_time_left() == 0:
 			$Dual_timer.start()
 		elif guns.size() > 1 and dual_wielding:

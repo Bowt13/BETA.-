@@ -1,9 +1,6 @@
 extends Area2D
 
-onready var Globals = $'/root/Game'.Globals
-
 var bullet_speed
-var bullet_dir
 var bullet_dam
 var bullet_side
 var bullet_init_pos
@@ -58,6 +55,8 @@ func set_pos_speed(pos, target, this_speed):
 	pass
 
 func _physics_process(delta):
+	if delta != delta:
+		print(delta)
 	check_hits()
 	bullet_normal_check()
 	fly()
@@ -75,7 +74,7 @@ func check_hits():
 		if(body.name == "Player"):
 			pass
 		else:
-			if "Wall" in body.name or "Enemy" in body.name:
+			if body.name in legit_bodies:
 				queue_free()
 			if body.is_in_group("Enemy"):
 				check_hit_side(body)

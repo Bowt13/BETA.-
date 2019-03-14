@@ -1,11 +1,5 @@
 extends Node2D
 
-signal move_state_changed
-signal jump_state_changed
-
-onready var Player = $'../../'
-onready var Input = $'../InputHandler'
-
 var all_state_nodes =		[]
 var all_state_values =		[]
 
@@ -34,9 +28,6 @@ var current_move_sub_state
 var current_jump_state
 
 var current_aim_state
-
-var current_state_values
-
 
 func _ready():
 	get_all_state_nodes()
@@ -68,7 +59,8 @@ func get_all_state_nodes():
 	pass
 
 func _physics_process(delta):
-	check_if_idle()
+	if delta:
+		check_if_idle()
 	pass
 
 func check_if_idle():
@@ -220,6 +212,5 @@ func aiming():
 	pass
 
 func set_look_dir():
-	if aiming():
-		var mouse_pos = get_global_mouse_position()
+
 	pass

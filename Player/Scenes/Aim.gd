@@ -1,7 +1,6 @@
 extends Node2D
 
 onready var Player = $"../../../../"
-onready var Player_Sprite = Player.get_node("Body/Sprite")
 onready var Dashing = $"../"
 
 func _ready():
@@ -20,5 +19,7 @@ func stop():
 	pass
 
 func _physics_process(delta):
+	if delta != delta:
+		print(delta)
 	$Rotator.look_at(Dashing.mouse_pos)
 	pass

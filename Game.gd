@@ -14,3 +14,11 @@ func _ready():
 		get_tree().quit()
 #	print("Game.gd gravity = ",Gravity)
 	pass
+
+func get_globals():
+	return(Globals)
+	pass
+
+func get_gravity():
+	return(Gravity)
+	pass

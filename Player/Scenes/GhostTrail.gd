@@ -1,10 +1,8 @@
 extends Node2D
 
-var ghost
 export(PackedScene) var ghost_scene
 export (float, 0.01, 1) var set_opacity = 0.1
 export (float, 0.01, 1) var set_time = 0.2
-var opacity = set_opacity
 var this_ghost
 var ghost_sprite
 var ghost_direction
@@ -12,7 +10,6 @@ var ghost_scale
 
 var Parent
 var Sprite
-var Proc_mat
 
 func _ready():
 	Parent = get_parent()
@@ -24,10 +21,6 @@ func _ready():
 		Sprite = $"../Ghost"
 	get_ghost()
 	$Ghost_Timer.start()
-	pass
-
-func _physics_process(delta):
-
 	pass
 
 func return_opacity():

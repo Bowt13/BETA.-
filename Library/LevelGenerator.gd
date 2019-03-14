@@ -1,10 +1,7 @@
 extends Node
 
 # SETTINGS
-var print_error = true
-var print_grid = true
-
-var is_initialized = false
+var print_error_bool = true
 
 # PLAYER
 ## POSITION
@@ -67,10 +64,10 @@ func _ready():
 	pass
 
 ## PRINTER
-func print_error(error):
-	if print_error:
+func print_error(error_2_print):
+	if print_error_bool:
 		print("res://Library/LevelGenerator.gd")
-		print("Error: ", error)
+		print("Error: ", error_2_print)
 	pass
 
 func print_rooms(var value):
@@ -225,7 +222,6 @@ func load_templates():
 	pass
 
 func set_room_templates():
-	var types = []
 	for x in range(ROOM_TEMPLATES_DIC.Rooms.size()):
 		var r_temp = ROOM_TEMPLATES_DIC.Rooms[x]
 		var r_temp_name = "Room_"+str(x+1)+""

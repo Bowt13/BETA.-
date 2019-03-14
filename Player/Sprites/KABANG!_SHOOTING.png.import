@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/KABANG!_SHOOTING.png-16dd06fb74b4680f58df90fd976cb311.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Player/Sprites/KABANG!_SHOOTING.png"
-source_md5="527f684215768003f1dccfcf0cca58a6"
-
 dest_files=[ "res://.import/KABANG!_SHOOTING.png-16dd06fb74b4680f58df90fd976cb311.stex" ]
-dest_md5="f2dc1338703eb0d897dfbafc4cf50a1b"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=false
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=false

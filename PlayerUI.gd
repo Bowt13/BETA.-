@@ -15,5 +15,3 @@ func _ready():
 	half_grid = grid_size/2
 	rect_size = grid_size
 	pass
-	
-func _physics_process(delta):

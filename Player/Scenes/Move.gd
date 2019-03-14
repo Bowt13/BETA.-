@@ -2,7 +2,6 @@ extends Node2D
 
 onready var aiming_state = $'../Aiming'.state
 onready var Movement = $'../../MovementHandler'
-onready var Player = $'../..'
 
 var state = false
 var current_dir = 0
@@ -12,19 +11,20 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	if $Dashing.state:
-		if $Walking.state:
-			$Walking.exit()
-	else:
-		if state == true:
-			get_aiming_state()
-			if aiming_state:
-				if current_state == 'Walking': return
-				current_state = 'Walking'
-				$Walking.enter()
-			else:
-				if $Walking.state:
-					$Walking.exit()
+	if delta:
+		if $Dashing.state:
+			if $Walking.state:
+				$Walking.exit()
+		else:
+			if state == true:
+				get_aiming_state()
+				if aiming_state:
+					if current_state == 'Walking': return
+					current_state = 'Walking'
+					$Walking.enter()
+				else:
+					if $Walking.state:
+						$Walking.exit()
 
 	pass
 

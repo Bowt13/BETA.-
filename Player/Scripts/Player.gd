@@ -2,54 +2,23 @@
 
 #SIGNALS
 signal share_Physics
-signal player_hit()
 
 #MOVEMENT
 var motion = Vector2()
-var move_speed = 100
-var max_speed = 800
-var max_speed_fw = max_speed
-var max_speed_bw = max_speed/2
-var speed_fw
-var speed_bw
-var move_multiplier = 1
-var air_move = 0.5
-var ground_move = 1
-var collision_multiplier = 1
-var jump_speed = -2000
-var looking_left
-var looking_right
-  
+
 #SELF
 var player_pos
-var player_health = 100
-var current_health = player_health
 
 #PHYSICS
 var knockback = Vector2(1000, -1400)
 
-
-var charge_gun
-var pull_trigger
-var jump
-var no_jump 
-var up
-var right
-var down
-var left
-var change_gun
-
-
 #CONDITIONALS
 var has_gun = false
-var is_charging = false
 var is_hit = false
 var is_aiming = false
 var is_pulling_trigger = false
-var is_moving = false
 var can_jump = true
 var is_jumping = true
-var is_running = false
 
 #FUNCTIONS
 func _ready():
@@ -61,9 +30,11 @@ func _on_World_share_Physics(new_Physics):
 	pass
 
 func _physics_process(delta):
+	if delta != delta:
+		print(delta)
 #PLAYER
 	#POSITION
-	set_position()
+	set_player_position()
 
 
 func _on_Jump_timer_timeout():
@@ -76,7 +47,7 @@ func _on_JumpCorrect_timer_timeout():
 
 	#PLAYER
 		#POSITION
-func set_position():
+func set_player_position():
 	player_pos = self.get_global_position()
 	pass
 
@@ -113,7 +84,7 @@ func _on_Input_pull_trigger():
 	if has_gun:
 		if is_aiming:
 			is_pulling_trigger = true
-			pull_trigger()
+#			pull_trigger()
 	pass
 
 func enemy_hit():

@@ -5,9 +5,6 @@ var state
 func _ready():
 	pass
 
-func _physics_process(delta):
-	pass
-	
 func enter():
 	state = true
 	print(self.name, ' entered')

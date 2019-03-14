@@ -5,7 +5,7 @@ var state = false
 func _ready():
 	pass
 
-func enter(on_off):
+func enter():
 	state = true
 	print(self.name, ' entered')
 	pass

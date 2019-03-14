@@ -7,6 +7,8 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	if delta != delta:
+		print(delta)
 	if state == true:
 		pass
 	pass

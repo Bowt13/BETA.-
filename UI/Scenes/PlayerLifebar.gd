@@ -8,7 +8,6 @@ var new_health = 0
 var old_health = 0
 
 var Dash
-var d_value
 var dash = 0 setget set_dash
 
 var is_initialized = false

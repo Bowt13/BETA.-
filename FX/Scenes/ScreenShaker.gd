@@ -23,5 +23,6 @@ func screen_shake(shake_length, shake_amplitude, shake_priority):
 
 
 func _on_Tween_completed(object, key):
+	print(object, key)
 	current_shake_priority = 0
 	pass

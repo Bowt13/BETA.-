@@ -3,9 +3,6 @@ extends Sprite
 var opacity = 0.1
 var time = 0.2
 
-func _process(delta):
-	pass
-
 func set_tween(new_opacity, new_time):
 	opacity = new_opacity
 	time = new_time
@@ -17,5 +14,6 @@ func start():
 	pass
 
 func _on_AlphaTween_tween_completed(object, key):
+	print(object, key)
 	queue_free()
 	pass

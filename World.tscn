@@ -5,38 +5,23 @@
 [ext_resource path="res://Player/Scenes/Player.tscn" type="PackedScene" id=3]
 
 [node name="World" type="Node2D"]
-
 script = ExtResource( 1 )
-_sections_unfolded = [ "Material", "Transform" ]
 GRAVITY = 1
 MAX_GRAVITY = 1
 GLIDE_RATIO = 1.0
 
-[node name="CameraStart" type="Position2D" parent="." index="0"]
-
+[node name="CameraStart" type="Position2D" parent="."]
 position = Vector2( -896, -896 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="CasingContainer" type="Node2D" parent="." index="1"]
+[node name="CasingContainer" type="Node2D" parent="."]
 
-_sections_unfolded = [ "Material", "Transform" ]
+[node name="BulletContainer" type="Node2D" parent="."]
 
-[node name="BulletContainer" type="Node2D" parent="." index="2"]
+[node name="Level" parent="." instance=ExtResource( 2 )]
 
-_sections_unfolded = [ "Material", "Transform" ]
-
-[node name="Level" parent="." index="3" instance=ExtResource( 2 )]
-
-_sections_unfolded = [ "Material", "Transform" ]
-
-[node name="Player" parent="." index="4" instance=ExtResource( 3 )]
-
+[node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( -896, -1088 )
 scale = Vector2( 1.75, 1.75 )
 collision_mask = 7
 
-[connection signal="share_Physics" from="." to="Level" method="_on_World_share_Physics"]
-
 [connection signal="share_Physics" from="." to="Player" method="_on_World_share_Physics"]
-
-

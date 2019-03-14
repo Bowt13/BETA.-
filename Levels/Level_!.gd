@@ -1,10 +1,5 @@
 extends Node2D
 
-signal share_Physics
-
-var Room_Type
-
-var rest_rooms = 0
 
 var rooms_Right = 40
 var rooms_Left = 1

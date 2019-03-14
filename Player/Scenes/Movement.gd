@@ -8,25 +8,16 @@ var Physics
 
 #MOVEMENT
 var motion = Vector2(0, 0)
-var max_speed = 1800
-var speed_fw
-var speed_bw
-var collision_multiplier = 1
-var jump_speed = -2000
-var looking_left
-var looking_right
 var Glide_Multiplier = 0.7
 
 const knockback = Vector2(1000, -1400)
 
-signal is_on_ground
 export (int, 1, 10) var accel_spd = 1
 
 var dir
 var current_dir
 
 var max_spd
-var abs_spd
 var abs_max_spd
 
 var airborn = [false, false]
@@ -66,7 +57,7 @@ func set_speed(delta):
 		if abs_max_spd:
 			if dir:
 				if dir == 0:
-					motion.x *= get_glide(abs_spd)
+					motion.x *= get_glide()
 				if abs_max_spd > abs_spd and current_dir != dir:
 					motion.x += accel_spd * dir * delta
 					current_dir = dir
@@ -76,14 +67,16 @@ func set_speed(delta):
 				if Player.is_on_wall():
 					motion.x = 0
 				if false in airborn:
-					motion.x *= get_glide(abs_spd)
+					motion.x *= get_glide()
 				else:
-					motion.x
+				#IF DASH WAS TRUE KEEP FLYING ELSE MOVEMENT
+					if abs_max_spd > abs_spd and current_dir != dir:
+						motion.x += accel_spd * dir * delta
+						current_dir = dir
 		Player.get_node("Body").change_anim_speed(motion.x)
 	pass
 
-func get_glide(abs_spd):
-	var motion_var  = (abs_max_spd - abs_spd) + 1
+func get_glide():
 	return( ( (Physics.Glide_Ratio + Glide_Multiplier) / 2 ) )
 	pass
 
@@ -107,6 +100,8 @@ func set_max_gravity(new_max_gravity):
 	pass
 
 func assign_gravity(delta):
+	if delta != delta:
+		print(delta)
 	if Player.is_on_ceiling():
 		motion.y = 1
 	else:

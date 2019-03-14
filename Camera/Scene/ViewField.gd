@@ -9,6 +9,6 @@ func _ready():
 	pass
 
 func update_camera(zoom):
-	$Field.shape.extents == zoom
+	$Field.shape.extents *= zoom
 	$"Field/Barriers".scale *= zoom
 	pass

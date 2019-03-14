@@ -4,14 +4,10 @@ var state = false
 
 export (int, 1, 100) var walk_spd = 1
 
-var max_spd
 onready var Movement = $'../../../MovementHandler'
 
 func _ready():
 	walk_spd *= 100
-	pass
-
-func _physics_process(delta):
 	pass
 
 func enter():

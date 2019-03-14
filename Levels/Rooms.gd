@@ -1,9 +1,5 @@
 extends Node2D
 
-onready var Background	= $Background
-onready var Foreground	= $Foreground
-onready var Spawners	= $Spawners
-
 var used_room_positions = []
 
 func init(new_layout):
@@ -51,7 +47,6 @@ func get_room_global_pos():
 	for cell in $Foreground/Wall.get_used_cells():
 		cells_pos_global.push_front($Foreground/Wall.map_to_world(cell))
 	return(cells_pos_global)
-	queue_free()
 	pass
 
 func autotile_all(Node):

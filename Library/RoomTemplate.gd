@@ -39,6 +39,3 @@ func load_json(path):
 	else:
 		print("LOAD FAILED (ERROR: INVALID JSON!)")
 	pass
-
-func generate_rooms(height, width):
-	pass

@@ -6,7 +6,6 @@ var Player_sprite
 var Player_pos
 var dash_spd
 var vec_spd
-var gravity = 120
 var STOP = Vector2(0,0)
 const UP = Vector2(0,-1)
 
@@ -56,9 +55,10 @@ func _on_Timer_timeout():
 	pass
 
 func _physics_process(delta):
+	if delta != delta:
+		print(delta)
 	Player_pos = Player.get_node("PlayerPos").global_position
 	$Body/Sprite.frame = Player_sprite.frame
 	if vec_spd:
 		move_and_slide(vec_spd,UP)
-		vec_spd.y
 	pass
